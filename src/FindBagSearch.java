@@ -3,25 +3,25 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 /**
- * Classe de execução para busca de bolsa usando o arquivo de índice criado.
+ * Classe de execuçao para busca de bolsa usando o arquivo de indice criado.
  */
 public class FindBagSearch {
 
     /**
-     * Realiza a busca de de um cadastro de bolsa família de acordo com o NIS pssado e exibe o resultado na saída.
+     * Realiza a busca de de um cadastro de bolsa familia de acordo com o NIS pssado e exibe o resultado na saida.
      *
-     * @param args Use <Arquivo de índice> <Arquivo de bolsa> <nis>
+     * @param args Use <Arquivo de indice> <Arquivo de bolsa> <nis>
      */
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.err.println("[ERRO] - Erro de argumento: Use <Arquivo de índice> <Arquivo de bolsa> <nis>");
+            System.err.println("[ERRO] - Erro de argumento: Use <Arquivo de indice> <Arquivo de bolsa> <nis>");
             System.exit(1);
         }
         String indexFilePath = args[0];
         String bagFilePath = args[1];
         String nis = args[2];
         if (nis.length() != 14) {
-            System.err.println("[ERRO] - O Valor de NIS deve conter 14 dígitos.");
+            System.err.println("[ERRO] - O Valor de NIS deve conter 14 digitos.");
             System.exit(2);
         }
 
@@ -55,11 +55,11 @@ public class FindBagSearch {
     }
 
     /**
-     * Captura o valor de posição da informação no arquivo de bolsa usando o arquivo de índice e o NIS.
+     * Captura o valor de posiçao da informaçao no arquivo de bolsa usando o arquivo de indice e o NIS.
      *
-     * @param indexFile Arquivo de índice.
+     * @param indexFile Arquivo de indice.
      * @param nis       NIS.
-     * @return valor de posição desejada.
+     * @return valor de posiçao desejada.
      * @throws IOException
      */
     private static long getBagDataPosition(RandomAccessFile indexFile, String nis) throws IOException {
@@ -69,13 +69,13 @@ public class FindBagSearch {
     }
 
     /**
-     * Realiza a busca binária no arquico de índice recursivamente até encontrar o NIS desejado.
+     * Realiza a busca binaria no arquico de indice recursivamente ate encontrar o NIS desejado.
      *
-     * @param initialPosition Posição inicial.
-     * @param finalPosition Posição final.
-     * @param indexFile Arquivo de índice.
+     * @param initialPosition Posiçao inicial.
+     * @param finalPosition Posiçao final.
+     * @param indexFile Arquivo de indice.
      * @param nis NIS
-     * @return valor de posição desejada.
+     * @return valor de posiçao desejada.
      * @throws IOException
      */
     private static long binarySearch(long initialPosition, long finalPosition, RandomAccessFile indexFile, String nis) throws IOException {
@@ -87,7 +87,7 @@ public class FindBagSearch {
         String[] column = line.split("\t");
         String foundNis = column[0];
 
-        // NIS solicitado menor que o NIS encontrado na árvore.
+        // NIS solicitado menor que o NIS encontrado na arvore.
         if (nis.compareTo(foundNis) < 0) {
             return binarySearch(initialPosition, middlePosition, indexFile, nis);
         } else if (nis.compareTo(foundNis) > 0) {

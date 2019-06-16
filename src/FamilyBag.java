@@ -1,5 +1,5 @@
 /**
- * Bolsa família.
+ * Bolsa familia.
  */
 public class FamilyBag {
 
@@ -9,32 +9,32 @@ public class FamilyBag {
     private String uf;
 
     /**
-     * Código SIAFI do município.
+     * Codigo SIAFI do municipio.
      */
     private String siafiCityCode;
 
     /**
-     * Nome do município.
+     * Nome do municipio.
      */
     private String cityName;
 
     /**
-     * Código da função.
+     * Codigo da funçao.
      */
     private String functionCode;
 
     /**
-     * Código de subfunção.
+     * Codigo de subfunçao.
      */
     private String subFunctionCode;
 
     /**
-     * Código do programa.
+     * Codigo do programa.
      */
     private String programCode;
 
     /**
-     * Código de ação.
+     * Codigo de açao.
      */
     private String actionCode;
 
@@ -49,7 +49,7 @@ public class FamilyBag {
     private String favoredName;
 
     /**
-     * Fonte-finalidade. Por exemplo: CAIXA-Programa Bolsa família.
+     * Fonte-finalidade. Por exemplo: CAIXA-Programa Bolsa familia.
      */
     private String fontAndFinality;
 
@@ -59,7 +59,7 @@ public class FamilyBag {
     private String value;
 
     /**
-     * Mês e ano.
+     * Mes e ano.
      */
     private String monthAndYear;
 
@@ -102,16 +102,16 @@ public class FamilyBag {
                 "\nDados de bolsa" +
                 "\n----------------------" +
                 "\nUnidade federativa: '" + uf + '\'' +
-                "\nCódigo SIAFI do município: '" + siafiCityCode + '\'' +
-                "\nNome do município: '" + cityName + '\'' +
-                "\nCódigo da função: '" + functionCode + '\'' +
-                "\nCódigo de subfunção: '" + subFunctionCode + '\'' +
-                "\nCódigo do programa: '" + programCode + '\'' +
-                "\nCódigo de ação: '" + actionCode + '\'' +
+                "\nCodigo SIAFI do municipio: '" + siafiCityCode + '\'' +
+                "\nNome do municipio: '" + cityName + '\'' +
+                "\nCodigo da funçao: '" + functionCode + '\'' +
+                "\nCodigo de subfunçao: '" + subFunctionCode + '\'' +
+                "\nCodigo do programa: '" + programCode + '\'' +
+                "\nCodigo de açao: '" + actionCode + '\'' +
                 "\nNIS do favorecido: '" + favoredNis + '\'' +
                 "\nNome do favorecido: '" + favoredName + '\'' +
                 "\nFonte-finalidade: '" + fontAndFinality + '\'' +
                 "\nValor: '" + value + '\'' +
-                "\nMês/ano: '" + monthAndYear + '\'';
+                "\nMes/ano: '" + monthAndYear + '\'';
     }
 }

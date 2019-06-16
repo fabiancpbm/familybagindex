@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 /**
- * Modelo de ítem de um arquivo de índice,
+ * Modelo de item de um arquivo de indice.
  */
 public class IndexItem implements Comparable<IndexItem> {
 
@@ -11,7 +11,7 @@ public class IndexItem implements Comparable<IndexItem> {
     private String nis;
 
     /**
-     * Posição das informações no de bolsa.
+     * Posiçao das informações no de bolsa.
      */
     private long position;
 

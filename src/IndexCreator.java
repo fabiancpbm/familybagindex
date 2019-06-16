@@ -2,27 +2,27 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Classe geradora de arquivo de índice.
+ * Classe geradora de arquivo de indice.
  * Algumas definições:
  * <p>
- * - Nível de arquivo: este número estará no nome do arquivo, representando o grau do merge já realizado nele.
- * Ou seja, se um arquivo ainda não foi mesclado a outro, seu nível será 0. Ao realizar o merge entre dois arquivos,
- * um novo será gerado com 1 nível acima dos arquivos lidos.
+ * - Nivel de arquivo: este numero estara no nome do arquivo, representando o grau do merge ja realizado nele.
+ * Ou seja, se um arquivo ainda nao foi mesclado a outro, seu nivel sera 0. Ao realizar o merge entre dois arquivos,
+ * um novo sera gerado com 1 nivel acima dos arquivos lidos.
  * <p>
- * - forceMerge: A regra aplicada ao método de merge criado nesta classe define que 2 arquivos de mesmo nível serão
- * juntados em um terceiro com 1 nível acima. Porém, a última operação a ser realizada de merge não garante
- * essa regra pois os arquivos criados podem ainda não estar na configuração necessária. Sendo assim, o forceMerge
- * é responsável por permitir que o merge seja realizado sem considerar essa regra.
+ * - forceMerge: A regra aplicada ao metodo de merge criado nesta classe define que 2 arquivos de mesmo nivel serao
+ * juntados em um terceiro com 1 nivel acima. Porem, a ultima operaçao a ser realizada de merge nao garante
+ * essa regra pois os arquivos criados podem ainda nao estar na configuraçao necessaria. Sendo assim, o forceMerge
+ * e responsavel por permitir que o merge seja realizado sem considerar essa regra.
  */
 public class IndexCreator {
 
     /**
-     * Quantidade de linhas a serem lidas por bloco de ordenação.
+     * Quantidade de linhas a serem lidas por bloco de ordenaçao.
      */
     private static final long LINE_PER_FILE = 1000;
 
     /**
-     * Programa principal responsável por gerar o arquivo de índice ordenado.
+     * Programa principal responsavel por gerar o arquivo de indice ordenado.
      *
      * @param args Use <Caminho_do_Arquivo_de_Bolsa>.
      */
@@ -33,7 +33,7 @@ public class IndexCreator {
             System.exit(1);
         }
 
-        // Inicializando as variáveis.
+        // Inicializando as variaveis.
         String filePath = args[0];
         String line;
         String[] columns;
@@ -57,7 +57,7 @@ public class IndexCreator {
                     IndexItem indexItem = new IndexItem(nis, position);
                     indexItemList.add(indexItem);
 
-                    // Realizando o merge entre os arquivos temporários já criados, caso seja possível.
+                    // Realizando o merge entre os arquivos temporarios ja criados, caso seja possivel.
                     boolean lastLine = bagFile.getFilePointer() == bagFile.length();
                     if (indexItemList.size() % LINE_PER_FILE == 0 || lastLine) {
                         createFileAndMerge(indexItemList, lastLine);
@@ -66,15 +66,15 @@ public class IndexCreator {
                 }
                 bagFile.close();
                 long readingDuration = System.currentTimeMillis() - t1;
-                System.out.println("[INFO] - Leitura concluída em " + readingDuration + " milissegundos.");
+                System.out.println("[INFO] - Leitura concluida em " + readingDuration + " milissegundos.");
 
-                System.out.println("[INFO] - Movendo arquivo de índice para a pasta padrão e deletando a pasta temporária.");
+                System.out.println("[INFO] - Movendo arquivo de indice para a pasta padrao e deletando a pasta temporaria.");
                 File path = new File("src/temp");
                 File indexFile = path.listFiles()[0];
                 indexFile.renameTo(new File("src/index.csv"));
                 path.deleteOnExit();
 
-                System.out.println("[INFO] - Arquivo de índice criado com sucesso.");
+                System.out.println("[INFO] - Arquivo de indice criado com sucesso.");
             } catch (IOException e) {
                 System.err.println("[ERRO] - Erro ao tentar ler o arquivo: " + e.getMessage());
             }
@@ -82,15 +82,15 @@ public class IndexCreator {
     }
 
     /**
-     * Cria um arquivo de temporário índice ordenado com {@link #LINE_PER_FILE} linhas e realiza o merge,
-     * caso seja possível.
+     * Cria um arquivo de temporario indice ordenado com {@link #LINE_PER_FILE} linhas e realiza o merge,
+     * caso seja possivel.
      * <p>
-     * Para fazer Merge entre os arquivos, é preciso que haja na pasta temporária pelo menos um arquivo.
-     * O Merge irá mesclar arquivos que possuem o mesmo nível, ou seja, a mesma quantidade de linhas. Isso só não
-     * acontecerá quando a última linha do arquivo de bolsas for lido. Neste caso, será feito um merge forçado, que
-     * se trata de um merge feito unindo todos os arquivos temporários, independente dos seus níveis.
+     * Para fazer Merge entre os arquivos, e preciso que haja na pasta temporaria pelo menos um arquivo.
+     * O Merge ira mesclar arquivos que possuem o mesmo nivel, ou seja, a mesma quantidade de linhas. Isso so nao
+     * acontecera quando a ultima linha do arquivo de bolsas for lido. Neste caso, sera feito um merge forçado, que
+     * se trata de um merge feito unindo todos os arquivos temporarios, independente dos seus niveis.
      *
-     * @param indexItemList Lista de Ítens para o arquivo de índice.
+     * @param indexItemList Lista de itens para o arquivo de indice.
      * @param forceMerge    <true> se for desejado forçar o merge.
      * @throws IOException
      */
@@ -120,20 +120,20 @@ public class IndexCreator {
     }
 
     /**
-     * Realiza o merge, caso seja possível. Os seguintes passos são realizados:
-     * - Verificar se tem merge para fazer. O merge é feito de 2 em 2 arquivos, preferencialmente que estejam no
-     * mesmo nível, ou seja, possuamm o mesmo número de linhas.
+     * Realiza o merge, caso seja possivel. Os seguintes passos sao realizados:
+     * - Verificar se tem merge para fazer. O merge e feito de 2 em 2 arquivos, preferencialmente que estejam no
+     * mesmo nivel, ou seja, possuamm o mesmo numero de linhas.
      * - Caso tenha, faça.
-     * - Ao final do merge, verifique se a nova configuração da pasta temporária permite realizar um novo merge.
-     * - Caso tenha, refaça os processos acima novamente. Esta função é recursiva. Seu objetivo é entregar um merge
-     * tão pequeno quanto possível.
+     * - Ao final do merge, verifique se a nova configuraçao da pasta temporaria permite realizar um novo merge.
+     * - Caso tenha, refaça os processos acima novamente. Esta funçao e recursiva. Seu objetivo e entregar um merge
+     * tao pequeno quanto possivel.
      *
-     * @param fileList   Lista de arquivos da pasta temporária.
-     * @param forceMerge <true> se for necessário realizar o merge desconsiderando os níveis entre os arquivos.
+     * @param fileList   Lista de arquivos da pasta temporaria.
+     * @param forceMerge <true> se for necessario realizar o merge desconsiderando os niveis entre os arquivos.
      * @throws IOException
      */
     private static void performMerge(File[] fileList, boolean forceMerge) throws IOException {
-        // Verificando se tem chance de ocorrer merge. O Merge pode ocorrer caso haja arquivos de mesmo nível ou caso o
+        // Verificando se tem chance de ocorrer merge. O Merge pode ocorrer caso haja arquivos de mesmo nivel ou caso o
         // forceMerge for verdadeiro.
         boolean hasMergeToDo = forceMerge;
         if (!hasMergeToDo) {
@@ -197,29 +197,29 @@ public class IndexCreator {
                 }
             }
 
-            // Apagando os arquivos já usados.
+            // Apagando os arquivos ja usados.
             for (File file : filesToDelete) {
                 if (file.exists()) {
                     file.delete();
                 }
             }
 
-            // Já que teve merge pra fazer, vou tentar fazer novamente.
+            // Ja que teve merge pra fazer, vou tentar fazer novamente.
             File path = new File("src/temp");
             if (path.listFiles().length > 1) {
                 performMerge(path.listFiles(), forceMerge);
             }
         }
 
-        // Se o codigo chegou aqui, é porque não tem mais merge pra fazer.
+        // Se o codigo chegou aqui, e porque nao tem mais merge pra fazer.
     }
 
     /**
-     * Verifica se os arquivos estão no mesmo nível.
+     * Verifica se os arquivos estao no mesmo nivel.
      *
      * @param file1 Arquivo 1.
      * @param file2 Arquivo 2.
-     * @return <true>, se os arquivos estiverem no mesmo nível.
+     * @return <true>, se os arquivos estiverem no mesmo nivel.
      */
     private static boolean isAtSameLevel(File file1, File file2) {
         String name1 = file1.getName();
@@ -234,10 +234,10 @@ public class IndexCreator {
     }
 
     /**
-     * Captura o nível de um dado arquivo.
+     * Captura o nivel de um dado arquivo.
      *
-     * @param file Arquivo de onde deve ser abstraído o nível.
-     * @return Valor do nível do arquivo dado.
+     * @param file Arquivo de onde deve ser abstraido o nivel.
+     * @return Valor do nivel do arquivo dado.
      */
     private static long getLevel(File file) {
         String name = file.getName();
@@ -246,11 +246,11 @@ public class IndexCreator {
     }
 
     /**
-     * Gera um ID para um novo arquivo, a fim de evitar repetição na criação de arquivos.
+     * Gera um ID para um novo arquivo, a fim de evitar repetiçao na criaçao de arquivos.
      *
      * @param files Lista de arquivos existentes.
-     * @param level Nível do arquivo. Isso é capturado porque a possibilidade de repetição entre arquivos só ocorre
-     *              quando eles estão no mesmo nível.
+     * @param level Nivel do arquivo. Isso e capturado porque a possibilidade de repetiçao entre arquivos so ocorre
+     *              quando eles estao no mesmo nivel.
      * @return ID do arquivo a ser criado.
      */
     private static long getIdFileGivenLevel(File[] files, long level) {
@@ -319,17 +319,17 @@ public class IndexCreator {
             File file = new File(filePath);
             outFile = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
-            System.err.println("[ERRO] - Erro ao tentar criar o arquivo de índice: " + e.getMessage());
+            System.err.println("[ERRO] - Erro ao tentar criar o arquivo de indice: " + e.getMessage());
             System.exit(3);
         }
         return outFile;
     }
 
     /**
-     * Converte um arquivo de índice para uma lista de índice.
+     * Converte um arquivo de indice para uma lista de indice.
      *
-     * @param file Arquivo de índice.
-     * @return Lista de índice.
+     * @param file Arquivo de indice.
+     * @return Lista de indice.
      */
     private static List<IndexItem> convertFileToIndexList(RandomAccessFile file) throws IOException {
         List<IndexItem> indexItemList = new ArrayList<>();
