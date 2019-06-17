@@ -19,7 +19,7 @@ public class IndexCreator {
     /**
      * Quantidade de linhas a serem lidas por bloco de ordenaçao.
      */
-    private static final long LINE_PER_FILE = 1000;
+    private static final long LINE_PER_FILE = 100000;
 
     /**
      * Programa principal responsavel por gerar o arquivo de indice ordenado.
